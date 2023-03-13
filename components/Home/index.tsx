@@ -12,15 +12,22 @@ const HomeComponent = () => {
         className="min-h-screen py-20 bg-pink-50 flex justify-center text-black-50"
         id="contact"
       >
-        <div className="grid lg:grid-cols-2 container py-20 lg:gap-20">
+        <div className="grid lg:grid-cols-2 container py-20 lg:gap-24">
           <div className="flex flex-col justify-center gap-6 max-w-7xl">
             <p className="text-6xl font-semibold">Contact Me.</p>
 
-            <p className="text-lg font-medium">
+            <p className="text-lg font-medium max-w-7xl">
               Now, here we are in the best part. If you have any questions or
               you want to say just hi, feel free to contact me. I will do my
               best to reply as soon as possible.
             </p>
+
+            <a
+              href="mailto:hsynerkl34@gmail.com"
+              className="bg-blue-50 py-3 font-normal px-6 text-white w-fit rounded-md hover:bg-transparent border-blue-50 hover:text-black-50 transition duration-300 border-2"
+            >
+              Say Hello!
+            </a>
           </div>
           <div className="aspect-h-14 aspect-w-16 max-w-xl">
             <svg

@@ -1,4 +1,39 @@
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
+const boxImages = [
+  require("assets/birinci-removebg-preview.png"),
+  require("assets/ikinci-removebg-preview.png"),
+  require("assets/ucuncu-removebg-preview.png"),
+  require("assets/dorduncu-removebg-preview.png"),
+  require("assets/besinci-removebg-preview.png"),
+  require("assets/altinci-removebg-preview.png"),
+  require("assets/yedinci-removebg-preview.png"),
+  require("assets/sekizinci-removebg-preview.png"),
+  require("assets/dokuzuncu-removebg-preview.png"),
+];
+
 const FirstSection = () => {
+  const [boxIsStart, setBoxIsStarts] = useState(true);
+  const [boxImage, setBoxImage] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (boxImage === 8) {
+        setBoxImage(0);
+        setBoxIsStarts(false);
+      } else {
+        setBoxImage((prev) => prev + 1);
+      }
+    }, 600);
+
+    !boxIsStart && clearInterval(timer);
+
+    return () => clearInterval(timer);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [boxIsStart, boxImage]);
+
   return (
     <div className="min-h-screen bg-yellow-50" id="">
       <nav className="h-16 w-full pt-6 text-black-50">
@@ -43,7 +78,7 @@ const FirstSection = () => {
         </div>
       </nav>
 
-      <section className="flex justify-center lg:mt-14 items-center text-black-50">
+      <section className="flex justify-center lg:mt-14 items-center relative text-black-50">
         <div className="grid lg:grid-cols-2 container py-20 lg:gap-20">
           <div className="flex flex-col justify-center gap-3 max-w-7xl">
             <p className="text-sm text-blue-50">Hey there, my name is</p>
@@ -335,6 +370,13 @@ const FirstSection = () => {
             </svg>
           </div>
         </div>
+        <Image
+          className="absolute bottom-0 right-32"
+          src={boxImages[boxImage]}
+          alt="box"
+          width={100}
+          height={100}
+        />
       </section>
     </div>
   );

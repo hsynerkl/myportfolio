@@ -225,8 +225,7 @@ const SecondSection = () => {
         <div className="flex flex-col justify-center max-w-7xl font-medium gap-6 text-lg">
           <p className="text-yellow-50 text-6xl font-bold">About Me</p>
           <p>
-            Hello! My name is Hüseyin Erkal. I am a mechatronics engineer who
-            graduated from Marmara University. I am 21 years old. I live in
+            Hello! My name is Hüseyin Erkal. I am 21 years old. I live in
             İstanbul, Turkey. I started my programming journey when I was in the
             university.
           </p>

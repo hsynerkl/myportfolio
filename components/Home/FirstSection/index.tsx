@@ -462,7 +462,7 @@ const FirstSection = () => {
               height={10}
               src={boxImages[boxImage]}
               alt="left-fighter"
-              className={`${fighterIsHidden && "opacity-0 select-none"}`}
+              className={`mb-1 ${fighterIsHidden && "opacity-0 select-none"}`}
             />
 
             <Image

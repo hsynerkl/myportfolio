@@ -28,7 +28,7 @@ const FirstSection = () => {
     setFightStartButton(true);
   };
 
-  const handleBgColor = useMemo(() => {
+  const bgColor = useMemo(() => {
     if (fightStart) {
       return "bg-yellow-50";
     } else if (fightIsEnd && !fighterIsHidden) {
@@ -67,7 +67,7 @@ const FirstSection = () => {
 
   return (
     <div
-      className={`transition-colors duration-150 min-h-screen overflow-hidden ${handleBgColor}`}
+      className={`transition-colors duration-150 min-h-screen overflow-hidden ${bgColor}`}
     >
       <nav className="h-16 w-full pt-6 text-black-50">
         <div className="flex container mx-auto justify-between">
@@ -405,7 +405,7 @@ const FirstSection = () => {
         </div>
       </section>
       <div className="container h-48 relative mx-auto">
-        <div className="flex items-end h-full absolute bottom-0 w-48 right-24 gap-2.5">
+        <div className="flex items-end h-full absolute bottom-0 w-48 right-16 sm:right-24 gap-2.5">
           {!fightStartButton && (
             <div
               className="absolute top-0 left-12 hover:opacity-90 duration-150 cursor-pointer py-2 px-6 bg-blue-50 text-white rounded-md"

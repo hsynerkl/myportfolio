@@ -1,5 +1,8 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import LeftFighter from "assets/left-removebg-preview.png";
+import Ambulance from "assets/ambulance.png";
+import Police from "assets/police.png";
 
 const boxImages = [
   require("assets/birinci-removebg-preview.png"),
@@ -14,28 +17,58 @@ const boxImages = [
 ];
 
 const FirstSection = () => {
-  const [boxIsStart, setBoxIsStarts] = useState(true);
   const [boxImage, setBoxImage] = useState(0);
+  const [fightStart, setFightStart] = useState(false);
+  const [fightIsEnd, setFightIsEnd] = useState(false);
+  const [fightStartButton, setFightStartButton] = useState(false);
+  const [fighterIsHidden, setFighterIsHidden] = useState(false);
+
+  const handleStartFight = () => {
+    setFightStart(true);
+    setFightStartButton(true);
+  };
+
+  const handleBgColor = useMemo(() => {
+    if (fightStart) {
+      return "bg-yellow-50";
+    } else if (fightIsEnd && !fighterIsHidden) {
+      return "bg-red-400";
+    } else {
+      return "bg-yellow-50";
+    }
+  }, [fighterIsHidden, fightIsEnd, fightStart]);
 
   useEffect(() => {
     const timer = setInterval(() => {
       if (boxImage === 8) {
         setBoxImage(0);
-        setBoxIsStarts(false);
-      } else {
+        setFightStart(false);
+        setFightIsEnd(true);
+      } else if (!fightIsEnd) {
         setBoxImage((prev) => prev + 1);
       }
     }, 600);
 
-    !boxIsStart && clearInterval(timer);
+    !fightStart && clearInterval(timer);
 
     return () => clearInterval(timer);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boxIsStart, boxImage]);
+  }, [boxImage, fightStart]);
+
+  useEffect(() => {
+    if (!fightIsEnd) return;
+    const timer2 = setInterval(() => {
+      setFighterIsHidden(true);
+    }, 4000);
+
+    return () => clearInterval(timer2);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fightIsEnd]);
 
   return (
-    <div className="min-h-screen bg-yellow-50" id="">
+    <div
+      className={`transition-colors duration-150 min-h-screen overflow-hidden ${handleBgColor}`}
+    >
       <nav className="h-16 w-full pt-6 text-black-50">
         <div className="flex container mx-auto justify-between">
           <div className="hidden sm:block">
@@ -78,7 +111,7 @@ const FirstSection = () => {
         </div>
       </nav>
 
-      <section className="flex justify-center lg:mt-14 items-center relative text-black-50">
+      <section className="flex justify-center lg:mt-14 items-center text-black-50">
         <div className="grid lg:grid-cols-2 container py-20 lg:gap-20">
           <div className="flex flex-col justify-center gap-3 max-w-7xl">
             <p className="text-sm text-blue-50">Hey there, my name is</p>
@@ -370,14 +403,89 @@ const FirstSection = () => {
             </svg>
           </div>
         </div>
-        <Image
-          className="absolute bottom-0 right-32"
-          src={boxImages[boxImage]}
-          alt="box"
-          width={100}
-          height={100}
-        />
       </section>
+      <div className="container h-48 relative mx-auto">
+        <div className="flex items-end h-full absolute bottom-0 w-48 right-24 gap-2.5">
+          {!fightStartButton && (
+            <div
+              className="absolute top-0 left-12 hover:opacity-90 duration-150 cursor-pointer py-2 px-6 bg-blue-50 text-white rounded-md"
+              onClick={handleStartFight}
+            >
+              Fight
+            </div>
+          )}
+
+          <div
+            className={`relative transition duration-150 ${
+              fightStart && "fight-animation"
+            } `}
+          >
+            <Image
+              width={90}
+              height={20}
+              src={LeftFighter}
+              className={`z-10 ${fightIsEnd && "-rotate-90 translate-y-4"} 
+                ${fighterIsHidden && "opacity-0 select-none"}
+              `}
+              alt="left-fighter"
+            />
+
+            <Image
+              src={Ambulance}
+              alt="ambulance"
+              className={`absolute -bottom-12 w-56 h-40 z-[999] -translate-x-[100vw] ${
+                fightIsEnd && "ambulance-animation"
+              }`}
+            />
+
+            {!fightStartButton && (
+              <p className="absolute -top-4 font-semibold text-xs -left-14">
+                Menemen <br></br> soğansız olur.
+              </p>
+            )}
+            {fightStart && (
+              <div className="absolute w-9 h-1 rounded-md bg-white -top-4 left-7">
+                {!fightIsEnd && (
+                  <div className="w-9 healt-animation bg-green-500 h-full"></div>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div
+            className={`relative transition-all duration-200 ${
+              fightStart && "-translate-x-8"
+            }`}
+          >
+            <Image
+              width={90}
+              height={10}
+              src={boxImages[boxImage]}
+              alt="left-fighter"
+              className={`${fighterIsHidden && "opacity-0 select-none"}`}
+            />
+
+            <Image
+              src={Police}
+              alt="police"
+              className={`absolute -translate-x-[100vw] -bottom-12 w-56 h-40 z-[999] ${
+                fightIsEnd && "ambulance-animation"
+              }`}
+            />
+
+            {!fightStartButton && (
+              <p className="absolute -top-4 font-semibold text-xs -right-14">
+                Hayır <br></br> soğanlı !!
+              </p>
+            )}
+            {fightStart && (
+              <div className="absolute w-9 h-1 rounded-md bg-white -top-4 right-6">
+                <div className="w-9 bg-green-500 h-full"></div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

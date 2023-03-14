@@ -19,3 +19,77 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.fight-animation {
+  animation: fight-keyframes 8s ease;
+}
+
+.healt-animation {
+  animation: health-keyframes 8s ease;
+}
+
+.ambulance-animation {
+  animation: ambulance-keyframe 8s ease;
+}
+
+@keyframes ambulance-keyframe {
+  0% {
+    transform: translateX(-9000px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+
+  100% {
+    transform: translateX(9000px);
+  }
+}
+
+@keyframes fight-keyframes {
+  12% {
+    transform: translateX(-3px);
+  }
+  24% {
+    transform: translateX(3px);
+  }
+  36% {
+    transform: translateX(-8px);
+  }
+  48% {
+    transform: translateX(-12px);
+  }
+  60% {
+    transform: translateY(-60px);
+  }
+  72% {
+    transform: translateX(-40px);
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes health-keyframes {
+  12% {
+    width: 32px;
+  }
+  24% {
+    width: 28px;
+  }
+  36% {
+    width: 24px;
+  }
+  48% {
+    width: 20px;
+  }
+  60% {
+    width: 16px;
+  }
+  72% {
+    width: 12px;
+  }
+  84% {
+    width: 8px;
+  }
+  96% {
+    width: 4px;
+  }
+}

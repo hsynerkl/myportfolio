@@ -1,1 +1,1 @@
-myportfolio-hsynerkl.vercel.app
+hsynerkl.vercel.app

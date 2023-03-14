@@ -67,7 +67,7 @@ const FirstSection = () => {
 
   return (
     <div
-      className={`transition-colors duration-150 min-h-screen overflow-hidden ${bgColor}`}
+      className={`transition-colors duration-150 min-h-screen flex flex-col justify-between overflow-hidden ${bgColor}`}
     >
       <nav className="h-16 w-full pt-6 text-black-50">
         <div className="flex container mx-auto justify-between">
